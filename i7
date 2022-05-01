@@ -1,0 +1,31 @@
+#!/bin/bash
+# usage: in a directory under which there's a projectname directory (under which there's projectname.inform and projectname.materials):
+# i7 projectname
+# this will compile it and use ifsitegen.py to generate a website allowing playing in a browser.
+
+# Update these links for your system:
+INBUILD_PATH=$HOME/github/i7
+IFSITEGEN="$HOME/github/glk-dev/ifsitegen.py"
+
+EXTERNAL=$INBUILD_PATH/External
+TRANSIENT=$INBUILD_PATH/Transient
+INTERNAL=$INBUILD_PATH/inform/inform7/Internal
+INFORM7=$INBUILD_PATH/inform/inform7/Tangled/inform7
+INFORM6=$INBUILD_PATH/inform/inform6/Tangled/inform6
+INBLORB=$INBUILD_PATH/inform/inblorb/Tangled/inblorb
+
+NAME="$*"
+PROJ="$NAME/$NAME.inform"
+BUILD="$PROJ/Build"
+mkdir -p "$BUILD"
+RELEASE="$NAME/$NAME.materials/Release"
+mkdir -p "$NAME/$NAME.materials/Release"
+CMD="$INFORM7 -no-index -no-census-update -no-progress -external $EXTERNAL -internal $INTERNAL -transient $TRANSIENT -project $PROJ"
+echo $CMD
+$CMD
+$INFORM6 -E2SDwG "$PROJ/Build/auto.inf" "$PROJ/Build/output.ulx"
+python "$IFSITEGEN" -a "$INBUILD_PATH/inform/inform7" -r "$RELEASE" "$BUILD/output.ulx" # comment out if you don't want it or don't have ifsitegen.py
+
+
+
+

@@ -1,0 +1,33 @@
+#!/bin/bash
+# Usage: i7init projectname (don't include spaces)
+#
+# This creates a projectname directory under the current working directory;
+# in the projectname directory are projectname.inform and projectname.materials.
+# projectname.inform/Source/story.ni is created with just "Lab is a room."
+# A uuid is generated in projectname.inform
+# These symlinks are created in projectname:
+# projectname.ni  -> projectname.inform/Source/story.ni
+# projectname.ulx -> projectname.inform/Build/output.ulx
+# play.html -> projectname.materials/Release/index.html (intended for use with ifsitegen.py)
+
+
+NAME="$*"
+PROJ="$NAME/$NAME.inform"
+SOURCE="$PROJ/Source"
+mkdir -p "$SOURCE"
+MAT="$NAME/$NAME.materials"
+RELEASE="$MAT/Release"
+mkdir -p "$MAT/Extensions"
+mkdir -p "$RELEASE"
+STORY="$SOURCE/story.ni"
+echo "\"$NAME\"" > "$STORY"
+echo >> $STORY
+echo "Lab is a room." >> $STORY
+BUILD="$PROJ/Build"
+mkdir -p "$BUILD"
+echo -n `uuidgen` > "$PROJ/uuid.txt" # you may need to change 'uuidgen' to 'uuid' 
+cd $NAME
+ln -s "$NAME.inform/Source/story.ni" "$NAME.ni"
+ln -s "$NAME.inform/Build/output.ulx" "$NAME.ulx"
+ln -s "$NAME.materials/Release/index.html" play.html
+cd ..
