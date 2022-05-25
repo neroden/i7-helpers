@@ -14,7 +14,7 @@ intest inform7 -using -extension "$EXT" -do -catalogue |
     I6="$letter.i6"
     ULX="$letter.ulx"
     intest inform7 -using -extension "$EXT" -do -source "$letter" -to "$INF"
-    inform7 -no-census-update -transient "$I7TRANSIENT" -external "$I7EXTERNAL" -internal "$I7INTERNAL" -no-census-update -no-progress -o "$I6" -source "$INF"
+    inform7 -no-census-update -transient "$I7TRANSIENT" -external "$I7EXTERNAL" -internal "$I7INTERNAL" -no-progress -o "$I6" -source "$INF"
     inform6 -E2SDwG "$I6" "$ULX"
     [[ "Z`intest inform7 -using -extension "$EXT" -do -script "$letter"`" != "Z" ]] && echo 'test me' | cheap-glulxe "$ULX"
   done
