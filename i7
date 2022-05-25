@@ -22,7 +22,7 @@ RELEASE="$NAME/$NAME.materials/Release"
 mkdir -p "$NAME/$NAME.materials/Release"
 echo "$INFORM7" -no-index -no-census-update -no-progress -external "$EXTERNAL" -internal "$INTERNAL" -transient "$TRANSIENT" -project "$PROJ"
 "$INFORM7" -no-index -no-census-update -no-progress -external "$EXTERNAL" -internal "$INTERNAL" -transient "$TRANSIENT" -project "$PROJ"
-"$INFORM6" -E2SDwG "$PROJ/Build/auto.inf" "$PROJ/Build/output.ulx"
+"$INFORM6" -E2SDwG '$OMIT_UNUSED_ROUTINES=1' "$PROJ/Build/auto.inf" "$PROJ/Build/output.ulx"
 python "$IFSITEGEN" -a "$INBUILD_PATH/inform/inform7" -r "$RELEASE" "$BUILD/output.ulx" # comment out if you don't want it or don't have ifsitegen.py
 
 
